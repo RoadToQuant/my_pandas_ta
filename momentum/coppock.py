@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 from .roc import roc
-from pandas_ta.overlap import wma
+from pandas_ta.overlap import ma
 from pandas_ta.utils import get_offset, verify_series
 
 
-def coppock(close, length=None, fast=None, slow=None, offset=None, **kwargs):
+def coppock(close, length=None, fast=None, slow=None, offset=None, mamode='wma', **kwargs):
     """Indicator: Coppock Curve (COPC)"""
     # Validate Arguments
     length = int(length) if length and length > 0 else 10
@@ -17,7 +17,7 @@ def coppock(close, length=None, fast=None, slow=None, offset=None, **kwargs):
 
     # Calculate Result
     total_roc = roc(close, fast) + roc(close, slow)
-    coppock = wma(total_roc, length)
+    coppock = ma(mamode, total_roc, length=length)
 
     # Offset
     if offset != 0:
