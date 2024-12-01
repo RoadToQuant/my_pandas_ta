@@ -3,7 +3,7 @@ import sys
 python_version = f"cp{sys.version_info.major}{sys.version_info.minor}"
 
 setup(
-    name='ttools',
+    name='my_pandas_ta',
     version='1.0.1',
     description='Technical indicators with extra self-made indicators',
     long_description=open('README.md').read(),
