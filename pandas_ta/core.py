@@ -23,6 +23,7 @@ from pandas_ta.trend import *
 from pandas_ta.volatility import *
 from pandas_ta.volume import *
 from pandas_ta.utils import *
+from pandas_ta.utils import _signals_np as snp
 
 
 df = pd.DataFrame()
