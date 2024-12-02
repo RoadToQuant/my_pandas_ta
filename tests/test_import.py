@@ -1,5 +1,12 @@
 import sys
-sys.path.append(r'D:\projects\quant-libs\my_pandas_ta')
-
+sys.path.append(r'F:\projects\quant-libs\my_pandas_ta')
 
 import pandas_ta as ta
+import numpy as np
+
+
+a = np.random.rand(10)
+b = np.random.rand(10)
+print(ta.snp.cross(a, b))
+print(a)
+print(b)
