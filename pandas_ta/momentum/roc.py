@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from .mom import mom
-from pandas_ta import Imports
 from pandas_ta.utils import get_offset, verify_series
 
 
@@ -16,11 +15,11 @@ def roc(close, length=None, scalar=None, talib=None, offset=None, **kwargs):
     if close is None: return
 
     # Calculate Result
-    if Imports["talib"] and mode_tal:
-        from talib import ROC
-        roc = ROC(close, length)
-    else:
-        roc = scalar * mom(close=close, length=length) / close.shift(length)
+    # if Imports["talib"] and mode_tal:
+    #     from talib import ROC
+    #     roc = ROC(close, length)
+    # else:
+    roc = scalar * mom(close=close, length=length) / close.shift(length)
 
     # Offset
     if offset != 0:

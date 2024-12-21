@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pandas_ta import Imports
+# from pandas_ta import Imports
 from pandas_ta.utils import get_offset, verify_series
 
 
@@ -15,13 +15,13 @@ def midpoint(close, length=None, talib=None, offset=None, **kwargs):
     if close is None: return
 
     # Calculate Result
-    if Imports["talib"] and mode_tal:
-        from talib import MIDPOINT
-        midpoint = MIDPOINT(close, length)
-    else:
-        lowest = close.rolling(length, min_periods=min_periods).min()
-        highest = close.rolling(length, min_periods=min_periods).max()
-        midpoint = 0.5 * (lowest + highest)
+    # if Imports["talib"] and mode_tal:
+    #     from talib import MIDPOINT
+    #     midpoint = MIDPOINT(close, length)
+    # else:
+    lowest = close.rolling(length, min_periods=min_periods).min()
+    highest = close.rolling(length, min_periods=min_periods).max()
+    midpoint = 0.5 * (lowest + highest)
 
     # Offset
     if offset != 0:

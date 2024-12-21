@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pandas import Series
-from pandas_ta import Imports
+# from jtfactors import Imports
 from pandas_ta.utils import get_offset, verify_series
 
 
@@ -16,24 +16,24 @@ def wma(close, length=None, asc=None, talib=None, offset=None, **kwargs):
     if close is None: return
 
     # Calculate Result
-    if Imports["talib"] and mode_tal:
-        from talib import WMA
-        wma = WMA(close, length)
-    else:
-        from numpy import arange as npArange
-        from numpy import dot as npDot
+    # if Imports["talib"] and mode_tal:
+    #     from talib import WMA
+    #     wma = WMA(close, length)
+    # else:
+    from numpy import arange as npArange
+    from numpy import dot as npDot
 
-        total_weight = 0.5 * length * (length + 1)
-        weights_ = Series(npArange(1, length + 1))
-        weights = weights_ if asc else weights_[::-1]
+    total_weight = 0.5 * length * (length + 1)
+    weights_ = Series(npArange(1, length + 1))
+    weights = weights_ if asc else weights_[::-1]
 
-        def linear(w):
-            def _compute(x):
-                return npDot(x, w) / total_weight
-            return _compute
+    def linear(w):
+        def _compute(x):
+            return npDot(x, w) / total_weight
+        return _compute
 
-        close_ = close.rolling(length, min_periods=length)
-        wma = close_.apply(linear(weights), raw=True)
+    close_ = close.rolling(length, min_periods=length)
+    wma = close_.apply(linear(weights), raw=True)
 
     # Offset
     if offset != 0:
