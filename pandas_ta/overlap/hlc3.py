@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pandas_ta import Imports
+# from jtfactors import Imports
 from pandas_ta.utils import get_offset, verify_series
 
 
@@ -13,11 +13,11 @@ def hlc3(high, low, close, talib=None, offset=None, **kwargs):
     mode_tal = bool(talib) if isinstance(talib, bool) else True
 
     # Calculate Result
-    if Imports["talib"] and mode_tal:
-        from talib import TYPPRICE
-        hlc3 = TYPPRICE(high, low, close)
-    else:
-        hlc3 = (high + low + close) / 3.0
+    # if Imports["talib"] and mode_tal:
+    #     from talib import TYPPRICE
+    #     hlc3 = TYPPRICE(high, low, close)
+    # else:
+    hlc3 = (high + low + close) / 3.0
 
     # Offset
     if offset != 0:

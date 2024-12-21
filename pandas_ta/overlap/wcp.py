@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pandas_ta import Imports
+# from jtfactors import Imports
 from pandas_ta.utils import get_offset, verify_series
 
 
@@ -13,11 +13,11 @@ def wcp(high, low, close, talib=None, offset=None, **kwargs):
     mode_tal = bool(talib) if isinstance(talib, bool) else True
 
     # Calculate Result
-    if Imports["talib"] and mode_tal:
-        from talib import WCLPRICE
-        wcp = WCLPRICE(high, low, close)
-    else:
-        wcp = (high + low + 2 * close) / 4
+    # if Imports["talib"] and mode_tal:
+    #     from talib import WCLPRICE
+    #     wcp = WCLPRICE(high, low, close)
+    # else:
+    wcp = (high + low + 2 * close) / 4
 
     # Offset
     if offset != 0:

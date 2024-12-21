@@ -40,3 +40,5 @@ from .trix import trix
 from .tsi import tsi
 from .uo import uo
 from .willr import willr
+
+from .rvi import rvi

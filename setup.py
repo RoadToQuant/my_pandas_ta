@@ -4,7 +4,7 @@ python_version = f"cp{sys.version_info.major}{sys.version_info.minor}"
 
 setup(
     name='my_pandas_ta',
-    version='1.0.2',
+    version='1.0.3',
     description='Technical indicators with extra self-made indicators',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',

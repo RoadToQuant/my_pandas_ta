@@ -1,19 +1,15 @@
 # -*- coding: utf-8 -*-
-from .hlc3 import hlc3
-from pandas_ta.utils import get_offset, is_datetime_ordered, verify_series
+from pandas_ta import get_offset, is_datetime_ordered, verify_series
 
-
-def vwap(high, low, close, volume, anchor=None, offset=None, **kwargs):
+def vwap(close, volume, length=10, anchor=None, offset=None, **kwargs):
     """Indicator: Volume Weighted Average Price (VWAP)"""
     # Validate Arguments
-    high = verify_series(high)
-    low = verify_series(low)
     close = verify_series(close)
     volume = verify_series(volume)
     anchor = anchor.upper() if anchor and isinstance(anchor, str) and len(anchor) >= 1 else "D"
     offset = get_offset(offset)
 
-    typical_price = hlc3(high=high, low=low, close=close)
+    typical_price = close
     if not is_datetime_ordered(volume):
         print(f"[!] VWAP volume series is not datetime ordered. Results may not be as expected.")
     if not is_datetime_ordered(typical_price):
@@ -21,8 +17,12 @@ def vwap(high, low, close, volume, anchor=None, offset=None, **kwargs):
 
     # Calculate Result
     wp = typical_price * volume
-    vwap  = wp.groupby(wp.index.to_period(anchor)).cumsum()
-    vwap /= volume.groupby(volume.index.to_period(anchor)).cumsum()
+    # note: original definition of vwap in pandas_ta is strange and here just rolling sum and div is fine.
+    # vwap  = wp.groupby(wp.index.to_period(anchor)).cumsum()
+    # vwap /= volume.groupby(volume.index.to_period(anchor)).cumsum()
+
+    vwap = wp.rolling(min_periods=1, window=length).sum()
+    vwap /= volume.rolling(min_periods=1, window=length).sum()
 
     # Offset
     if offset != 0:
@@ -54,9 +54,8 @@ Sources:
     https://stockcharts.com/school/doku.php?id=chart_school:technical_indicators:vwap_intraday
 
 Calculation:
-    tp = typical_price = hlc3(high, low, close)
-    tpv = tp * volume
-    VWAP = tpv.cumsum() / volume.cumsum()
+    closev = close * volume
+    VWAP = closev.cumsum() / volume.cumsum()
 
 Args:
     high (pd.Series): Series of 'high's

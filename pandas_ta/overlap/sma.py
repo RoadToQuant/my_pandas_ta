@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from pandas_ta import Imports
+# from jtfactors import Imports
 from pandas_ta.utils import get_offset, verify_series
 
 
@@ -15,11 +15,11 @@ def sma(close, length=None, talib=None, offset=None, **kwargs):
     if close is None: return
 
     # Calculate Result
-    if Imports["talib"] and mode_tal:
-        from talib import SMA
-        sma = SMA(close, length)
-    else:
-        sma = close.rolling(length, min_periods=min_periods).mean()
+    # if Imports["talib"] and mode_tal:
+    #     from talib import SMA
+    #     sma = SMA(close, length)
+    # else:
+    sma = close.rolling(length, min_periods=min_periods).mean()
 
     # Offset
     if offset != 0:
