@@ -46,12 +46,13 @@ def anchor_rev_std_vdma_s(high, low, close, volume, short=10, long=63, **kwargs)
     _vdma = vdma(volume, fast=short, slow=long)
     return _anchor_rev_std_s * _vdma
 
-def anchor_rev_std_vddma_s(high, low, close, volume, short=10, long=63, 
-                           period=126, top_k=0.95, bot_k=0.05, 
+
+def anchor_rev_std_vddma_s(high, low, close, volume, short=10, long=63,
+                           period=126, top_k=0.95, bot_k=0.05,
                            fast=10, slow=63, offset=10,
                            **kwargs):
     _anchor_rev_std_vdma_s = anchor_rev_std_vdma_s(
-        high, low, close, volume, short=short, long=long, 
+        high, low, close, volume, short=short, long=long,
         period=period, top_k=top_k, bot_k=bot_k, **kwargs
     )
     _ref_vdma = vdma(volume, fast, slow).shift(offset)
