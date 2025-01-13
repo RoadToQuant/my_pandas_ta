@@ -21,7 +21,7 @@ def vwap(high, low, close, volume, anchor=None, offset=None, **kwargs):
 
     # Calculate Result
     wp = typical_price * volume
-    vwap  = wp.groupby(wp.index.to_period(anchor)).cumsum()
+    vwap = wp.groupby(wp.index.to_period(anchor)).cumsum()
     vwap /= volume.groupby(volume.index.to_period(anchor)).cumsum()
 
     # Offset

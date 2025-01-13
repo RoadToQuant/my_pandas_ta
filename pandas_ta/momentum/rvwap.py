@@ -1,51 +1,40 @@
 # -*- coding: utf-8 -*-
-from pandas_ta import get_offset, is_datetime_ordered, verify_series
+from pandas_ta.utils import get_offset, is_datetime_ordered, verify_series
 
 
-def vwap(close, volume, length=10, anchor=None, offset=None, **kwargs):
-    """Indicator: Volume Weighted Average Price (VWAP)"""
+def rvwap(close, volume, length=10, anchor=None, offset=None, **kwargs):
+    """Indicator: Rolling Volume Weighted Average Price (RVWAP)"""
     # Validate Arguments
     close = verify_series(close)
     volume = verify_series(volume)
     anchor = anchor.upper() if anchor and isinstance(anchor, str) and len(anchor) >= 1 else "D"
     offset = get_offset(offset)
-
-    typical_price = close
-    if not is_datetime_ordered(volume):
-        print(f"[!] VWAP volume series is not datetime ordered. Results may not be as expected.")
-    if not is_datetime_ordered(typical_price):
-        print(f"[!] VWAP price series is not datetime ordered. Results may not be as expected.")
-
     # Calculate Result
-    wp = typical_price * volume
-    # note: original definition of vwap in pandas_ta is strange and here just rolling sum and div is fine.
-    # vwap  = wp.groupby(wp.index.to_period(anchor)).cumsum()
-    # vwap /= volume.groupby(volume.index.to_period(anchor)).cumsum()
-
-    vwap = wp.rolling(min_periods=1, window=length).sum()
-    vwap /= volume.rolling(min_periods=1, window=length).sum()
+    wp = close * volume
+    rvwap = wp.rolling(min_periods=1, window=length).sum()
+    rvwap /= volume.rolling(min_periods=1, window=length).sum()
 
     # Offset
     if offset != 0:
-        vwap = vwap.shift(offset)
+        rvwap = rvwap.shift(offset)
 
     # Handle fills
     if "fillna" in kwargs:
-        vwap.fillna(kwargs["fillna"], inplace=True)
+        rvwap.fillna(kwargs["fillna"], inplace=True)
     if "fill_method" in kwargs:
-        vwap.fillna(method=kwargs["fill_method"], inplace=True)
+        rvwap.fillna(method=kwargs["fill_method"], inplace=True)
 
     # Name & Category
-    vwap.name = f"VWAP_{anchor}"
-    vwap.category = "overlap"
+    rvwap.name = f"RVWAP_{anchor}"
+    rvwap.category = "momentumr"
 
-    return vwap
+    return rvwap
 
 
-vwap.__doc__ = \
-    """Volume Weighted Average Price (VWAP)
+rvwap.__doc__ = \
+    """Rolling Volume Weighted Average Price (VWAP)
     
-    The Volume Weighted Average Price that measures the average typical price
+    The Rolling Volume Weighted Average Price that measures the average typical price
     by volume.  It is typically used with intraday charts to identify general
     direction.
     

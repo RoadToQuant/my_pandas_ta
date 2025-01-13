@@ -1,6 +1,6 @@
-name = "pandas_ta"
+name = "my_pandas_ta"
 """
-.. moduleauthor:: Kevin Johnson / nfminer
+.. moduleauthor:: Kevin Johnson (root) / nfminer
 """
 from importlib.util import find_spec
 from pathlib import Path

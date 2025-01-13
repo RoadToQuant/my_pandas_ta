@@ -44,7 +44,7 @@ from .willr import willr
 # self-defined indicators
 from .rvi import rvi
 from .chaikin_vola import cv
-from .vwap import vwap
+from .rvwap import rvwap
 from .reverse import (
     anchor_reverse, anchor_rev_s,
     anchor_reverse_std, anchor_rev_std_s,
