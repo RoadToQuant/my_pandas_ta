@@ -4,7 +4,7 @@ from pandas import DataFrame, Series
 
 from pandas_ta.overlap import ma
 from pandas_ta.momentum import roc
-from pandas_ta import get_offset, verify_series, signed_series
+from pandas_ta.utils import get_offset, verify_series, signed_series
 
 
 def signal(factor: Series, period=126, top_k=0.8, bot_k=0.2) -> Series:
