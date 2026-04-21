@@ -1,5 +1,3 @@
-import sys
-sys.path.append(r'F:\projects\quant-libs\my_pandas_ta')
 
 import pandas_ta as ta
 import numpy as np

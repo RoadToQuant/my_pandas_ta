@@ -31,8 +31,9 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
-[tool.setuptools]
-packages = ["pandas_ta"]
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pandas_ta*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
