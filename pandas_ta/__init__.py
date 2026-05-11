@@ -18,7 +18,7 @@ from pkg_resources import get_distribution, DistributionNotFound
 #     __version__ = "Please install this project with setup.py"
 # 
 # version = __version__ = _dist.version
-version = __version__ = "v1.0.0"
+version = __version__ = "v1.0.5"
 
 Imports = {
     "alphaVantage-api": find_spec("alphaVantageAPI") is not None,
